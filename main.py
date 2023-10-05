@@ -1,25 +1,33 @@
-def caesar_encrypt(text, shift):
+ori_text = input("Zadej text k zašifrování: ")
+am_sh = int(input("Zadej posun: "))
 
 
-    encrypted_text = ""
-    
-    for char in text:
-        if char.isalpha():
-            if char.islower():
-                encrypted_text += chr(((ord(char) - ord('a') + shift) % 26) + ord('a'))
-            else:
-                encrypted_text += chr(((ord(char) - ord('A') + shift) % 26) + ord('A'))
+abc = ["a", "b", "c", "d","e", "f", "g", "h","i", "j", "k", "l","m", "n", "o", "p","q", "r", "s", "t","u", "v", "w", "x","y", "z"]
+
+
+def cipher(ori_text):
+    n_text = ""
+
+    for letter in ori_text:
+        if letter.islower():
+            n_text += abc[check_index(letter)]
+        elif letter.isupper():
+            n_text += abc[check_index(letter)].upper()
         else:
-            encrypted_text += char
-    return encrypted_text
+            n_text += letter
+    return n_text
 
-shift = 3  
 
-text= str(input("Zadej text k zasifrovani: "))
-def caesar_decrypt(text, shift):
-    return caesar_encrypt(text, -shift)
-encrypted_text = caesar_encrypt(text, shift)
-print("Zasifrovany text:", encrypted_text)
+def check_index(letter):
+    original_index = abc.index(letter.lower())
 
-decrypted_text = caesar_decrypt(encrypted_text, shift)
-print("Rozsifrovany text:", decrypted_text)
+    if (original_index + am_sh > len(abc)):
+        return (original_index + am_sh) % len(abc)
+    else:
+        return original_index + am_sh
+
+def main():
+    print(cipher(ori_text))
+
+if __name__ == "__main__":
+    main()
